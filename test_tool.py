@@ -14,4 +14,4 @@ def test_docx_reader_tool():
     result = docx_tool._run(sample_path)
     return result
 
-print(test_docx_reader_tool())
+print(test_supabase_connection())
