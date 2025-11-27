@@ -1,14 +1,25 @@
+import os
+from typing import Dict
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+# Import Pydantic Models
+from core.models import Job
+
 # Import router kamu
+
 from api.routes.extract import router as extract_router
+load_dotenv()
+TEMP_UPLOAD_DIR = os.getenv("TEMP_UPLOAD_DIR")
+os.makedirs(TEMP_UPLOAD_DIR, exist_ok=True)
 
 app = FastAPI(
     title="AuChan Agentic Service",
     version="1.0.0",
     description="AI-powered document parser & transaction extractor"
 )
+
 
 # CORS (optional kalau tes lokal)
 app.add_middleware(
