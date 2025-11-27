@@ -31,6 +31,7 @@ dotenv==0.9.9
 durationpy==0.10
 email-validator==2.3.0
 et_xmlfile==2.0.0
+Faker==38.2.0
 fastapi==0.121.3
 fastapi-cli==0.0.16
 fastapi-cloud-cli==0.5.1
@@ -61,6 +62,7 @@ importlib_resources==6.5.2
 instructor==1.13.0
 Jinja2==3.1.6
 jiter==0.11.1
+joblib==1.5.2
 json5==0.12.1
 json_repair==0.25.2
 jsonref==1.1.0
@@ -91,6 +93,7 @@ opentelemetry-semantic-conventions==0.59b0
 orjson==3.11.4
 overrides==7.7.0
 packaging==25.0
+pandas==2.3.3
 pdfminer.six==20251107
 pdfplumber==0.11.8
 pillow==12.0.0
@@ -118,6 +121,8 @@ python-dateutil==2.9.0.post0
 python-docx==1.2.0
 python-dotenv==1.2.1
 python-multipart==0.0.20
+pytz==2025.2
+pywin32==311
 PyYAML==6.0.3
 realtime==2.24.0
 referencing==0.37.0
@@ -129,6 +134,8 @@ rich-toolkit==0.16.0
 rignore==0.7.6
 rpds-py==0.29.0
 rsa==4.9.1
+scikit-learn==1.7.2
+scipy==1.16.3
 sentry-sdk==2.45.0
 shellingham==1.5.4
 six==1.17.0
@@ -142,6 +149,7 @@ supabase-auth==2.24.0
 supabase-functions==2.24.0
 sympy==1.14.0
 tenacity==9.1.2
+threadpoolctl==3.6.0
 tokenizers==0.22.1
 tomli==2.3.0
 tomli_w==1.2.0
@@ -152,6 +160,7 @@ typer==0.20.0
 typer-slim==0.20.0
 typing-inspection==0.4.2
 typing_extensions==4.15.0
+tzdata==2025.2
 urllib3==2.3.0
 uv==0.9.11
 uvicorn==0.38.0
@@ -161,4 +170,3 @@ websocket-client==1.9.0
 websockets==15.0.1
 yarl==1.22.0
 zipp==3.23.0
-scikit-learn
