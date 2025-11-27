@@ -8,8 +8,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from core.models import Job
 
 # Import router kamu
-
 from api.routes.extract import router as extract_router
+from api.routes.analysis import router as analysis_router
+
 load_dotenv()
 TEMP_UPLOAD_DIR = os.getenv("TEMP_UPLOAD_DIR")
 os.makedirs(TEMP_UPLOAD_DIR, exist_ok=True)
@@ -20,6 +21,8 @@ app = FastAPI(
     description="AI-powered document parser & transaction extractor"
 )
 
+# This will act as an in-memory "database" for job statuses.
+job_statuses: Dict[str, Job] = {}
 
 # CORS (optional kalau tes lokal)
 app.add_middleware(
@@ -32,6 +35,7 @@ app.add_middleware(
 
 # Register Routes
 app.include_router(extract_router, prefix="/api", tags=["Extractor"])
+app.include_router(analysis_router, prefix="/api", tags=["Analysis"])
 
 @app.get("/")
 def read_root():
