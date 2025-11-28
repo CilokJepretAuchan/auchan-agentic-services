@@ -1,5 +1,5 @@
 import os
-from services.Extractor_crew_runner import ExtractorCrewRunner
+from services.runner.Extractor_crew_runner import ExtractorCrewRunner
 from utils.custom_tools.docx_tool import DocxReaderTool
 from utils.utils import map_transactions
 from core.supabase import supabase

@@ -78,3 +78,42 @@ def map_transactions(
         })
 
     return mapped
+
+
+def validate_month_year_exists( month: int, year: int) -> bool:
+    """
+    Validate that a given month and year exist in the Transaction table based on transactionDate.
+    
+    Args:
+        supabase (Client): Supabase client instance
+        month (int): Numeric month (1–12)
+        year (int): Numeric year (YYYY)
+
+    Returns:
+        bool: True if at least one transaction exists in that month/year, otherwise False.
+    """
+
+    # Validasi input dasar
+    if month < 1 or month > 12:
+        return False
+
+    # Buat rentang tanggal untuk query
+    start_date = datetime(year, month, 1).isoformat()
+    if month == 12:
+        end_date = datetime(year + 1, 1, 1).isoformat()
+    else:
+        end_date = datetime(year, month + 1, 1).isoformat()
+
+    # Query ke supabase
+    response = (
+        supabase
+        .table("Transaction")
+        .select("id")
+        .gte("transactionDate", start_date)
+        .lt("transactionDate", end_date)
+        .limit(1)
+        .execute()
+    )
+
+    # Jika ada minimal satu data → valid
+    return len(response.data) > 0

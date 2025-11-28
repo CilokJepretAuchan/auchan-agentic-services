@@ -3,11 +3,12 @@ import shutil
 import os
 from dotenv import load_dotenv
 from fastapi import APIRouter, BackgroundTasks, UploadFile, File, HTTPException
+from fastapi.responses import FileResponse
 
 # Local imports
 from core.memory import job_statuses
 from core.models import Job, JobStatus
-from services.extract_file_bg import process_document_background
+from services.background.extract_file_bg import process_document_background
 
 # --- Router Setup ---
 router = APIRouter()
@@ -80,3 +81,5 @@ async def get_extract_status(job_id: str):
         raise HTTPException(status_code=404, detail="Job not found")
     
     return job
+
+

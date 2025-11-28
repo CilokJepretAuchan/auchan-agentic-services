@@ -10,6 +10,7 @@ from core.models import Job
 # Import router kamu
 from api.routes.extract import router as extract_router
 from api.routes.analysis import router as analysis_router
+from api.routes.report_build import router as builder_router
 
 load_dotenv()
 TEMP_UPLOAD_DIR = os.getenv("TEMP_UPLOAD_DIR")
@@ -34,8 +35,9 @@ app.add_middleware(
 )
 
 # Register Routes
-app.include_router(extract_router, prefix="/api", tags=["Extractor"])
+app.include_router(builder_router, prefix="/api", tags=["Report Builder"])
 app.include_router(analysis_router, prefix="/api", tags=["Analysis"])
+app.include_router(extract_router, prefix="/api", tags=["Extractor"])
 
 @app.get("/")
 def read_root():

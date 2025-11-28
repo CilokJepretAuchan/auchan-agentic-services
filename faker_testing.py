@@ -56,10 +56,13 @@ div_data = [
 
 # D. CATEGORIES
 print("🏷️  Generating Categories...")
+id_cat1 = str(uuid.uuid4())
+id_cat2 = str(uuid.uuid4())
+id_cat3 = str(uuid.uuid4())
 cats = [
-    {"id": "CAT-MAKAN", "name": "Konsumsi"},
-    {"id": "CAT-TRAVEL", "name": "Perjalanan Dinas"},
-    {"id": "CAT-IT", "name": "Equipment IT"}
+    {"id": id_cat1, "name": "Konsumsi"},
+    {"id": id_cat2, "name": "Perjalanan Dinas"},
+    {"id": id_cat3, "name": "Equipment IT"}
 ]
 cat_data = []
 for c in cats:
@@ -71,11 +74,13 @@ for c in cats:
 
 # E. PROJECTS
 print("scrum Generating Projects...")
+id_proj1 = str(uuid.uuid4())
+id_proj2 = str(uuid.uuid4())
 proj_data = [
     # Project Besar (IT)
-    {"id": "PROJ-BIG", "orgId": ORG_ID, "divisionId": div_ids[0], "projectName": "Upgrade Server", "budgetAllocated": 500_000_000},
+    {"id": id_proj1, "orgId": ORG_ID, "divisionId": div_ids[0], "projectName": "Upgrade Server", "budgetAllocated": 500_000_000},
     # Project Kecil (Marketing)
-    {"id": "PROJ-SMALL", "orgId": ORG_ID, "divisionId": div_ids[1], "projectName": "Outing Bali", "budgetAllocated": 10_000_000}
+    {"id": id_proj2, "orgId": ORG_ID, "divisionId": div_ids[1], "projectName": "Outing Bali", "budgetAllocated": 10_000_000}
 ]
 
 # F. TRANSACTIONS (Dengan Anomali)
@@ -102,14 +107,14 @@ def add_trx(proj_id, cat_id, amount, desc, user_idx=0, date_offset=None):
 
 # 1. Normal Data (Outing - Makan Murah) -> Cluster Normal
 for _ in range(15):
-    add_trx("PROJ-SMALL", "CAT-MAKAN", random.randint(40000, 70000), "Makan Siang Tim")
+    add_trx(id_proj2, id_cat1, random.randint(40000, 70000), "Makan Siang Tim")
 
 # 2. ANOMALI 1: Contextual (Makan Mahal di Project Kecil)
 # Ini bakal kena detect Isolation Forest
-add_trx("PROJ-SMALL", "CAT-MAKAN", 4_500_000, "Makan Siang Sultan (Anomali)", user_idx=1)
+add_trx(id_proj2, id_cat1, 4_500_000, "Makan Siang Sultan (Anomali)", user_idx=1)
 
 # 3. ANOMALI 2: Budget Overrun (Project Small cuma 10jt, ini nambah 6jt)
-add_trx("PROJ-SMALL", "CAT-TRAVEL", 6_000_000, "Tiket Pesawat Mendadak", user_idx=2)
+add_trx(id_proj2, id_cat2, 6_000_000, "Tiket Pesawat Mendadak", user_idx=2)
 
 # 4. ANOMALI 3: Duplikat
 trx_amount = 2_500_000
@@ -120,8 +125,8 @@ trx_data.append({
     "id": trx_id_asli,
     "userId": users_ids[0],
     "orgId": ORG_ID,
-    "projectId": "PROJ-BIG",
-    "categoryId": "CAT-TRAVEL",
+    "projectId": id_proj1,
+    "categoryId": id_cat2,
     "amount": trx_amount,
     "type": "EXPENSE",
     "description": trx_desc,
@@ -134,8 +139,8 @@ trx_data.append({
     "id": str(uuid.uuid4()),      # ID Baru
     "userId": users_ids[0],       # User Sama
     "orgId": ORG_ID,
-    "projectId": "PROJ-BIG",
-    "categoryId": "CAT-TRAVEL",
+    "projectId": id_proj1,
+    "categoryId": id_cat2,
     "amount": trx_amount,         # Jumlah Sama
     "type": "EXPENSE",
     "description": trx_desc,      # Deskripsi Sama

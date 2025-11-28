@@ -4,7 +4,7 @@ from fastapi import APIRouter, BackgroundTasks
 # Local imports
 from core.memory import job_statuses
 from core.models import Job
-from services.anomaly_runner_bg import run_anomaly_pipeline_background
+from services.runner.anomaly_runner_bg import run_anomaly_pipeline_background
 
 # --- Router Setup ---
 router = APIRouter()
