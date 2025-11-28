@@ -63,6 +63,7 @@ idna==3.11
 importlib_metadata==8.7.0
 importlib_resources==6.5.2
 instructor==1.13.0
+Jinja2==3.1.6
 jiter==0.11.1
 joblib==1.5.2
 json5==0.12.1
@@ -126,6 +127,7 @@ python-docx==1.2.0
 python-dotenv==1.2.1
 python-multipart==0.0.20
 pytz==2025.2
+pywin32==311
 PyYAML==6.0.3
 realtime==2.24.0
 referencing==0.37.0
