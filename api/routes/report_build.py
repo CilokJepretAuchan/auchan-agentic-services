@@ -8,41 +8,43 @@ from services.background.report_builder_bg import report_builder_background
 from utils.utils import validate_month_year_exists
 from core.memory import job_statuses
 
-from core.models import Job, JobStatus
+from core.models import BuildReportRequest, Job, JobStatus
 router = APIRouter()
 @router.post("/build-report", response_model=Job, status_code=200)
 async def build_report(
-    org_id: str,
-    month: int,
-    year: int,
+    req: BuildReportRequest,
     background_tasks: BackgroundTasks,
 ):
     """
     Endpoint to initiate the report building process for a given organization and time period.
-    Returns a job object immediately, which can be used to track the status.
+    Accepts body request JSON.
     """
-    # Implementation goes here
-    is_valid = validate_month_year_exists(month=month, year=year)
+    is_valid = validate_month_year_exists(month=req.month, year=req.year)
     if not is_valid:
-        raise HTTPException(status_code=400, detail="No transactions found for the specified month and year.")
+        raise HTTPException(
+            status_code=400,
+            detail="No transactions found for the specified month and year."
+        )
     
     job_id = str(uuid.uuid4())
     new_job = Job(
         job_id=job_id,
-        org_id=org_id
+        org_id=req.org_id
     )
+    
     job_statuses[job_id] = new_job
 
     # Queue the background task
     background_tasks.add_task(
         report_builder_background,
         job_id=job_id,
-        org_id=org_id,
-        month=month,
-        year=year
+        org_id=req.org_id,
+        month=req.month,
+        year=req.year
     )
 
     return new_job
+
 
 @router.get("/build-report/status/{job_id}", response_model=Job)
 async def get_extract_status(job_id: str):

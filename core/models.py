@@ -60,3 +60,9 @@ class FinancialContext(BaseModel):
 class FullReportResponse(BaseModel):
     context: FinancialContext
     ai_narrative: str
+
+
+class BuildReportRequest(BaseModel):
+    org_id: str
+    month: int
+    year: int
